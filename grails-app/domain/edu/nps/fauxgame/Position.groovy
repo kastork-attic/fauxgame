@@ -10,4 +10,8 @@ class Position {
   static constraints = {
     state inList: ['PEND', 'ATTN', 'OVER']
   }
+
+  String toString() {
+    "$roleParam : $playerIdent : $state"
+  }
 }

@@ -10,4 +10,8 @@ class LobbyServer {
 
   static constraints = {
   }
+
+  String toString() {
+    "$baseURL"
+  }
 }

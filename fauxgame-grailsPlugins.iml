@@ -16,7 +16,9 @@
       </configuration>
     </facet>
   </component>
-  <component name="NewModuleRootManager" inherit-compiler-output="true">
+  <component name="NewModuleRootManager" inherit-compiler-output="false">
+    <output url="file://target/production/fauxgame-grailsPlugins" />
+    <output-test url="file://target/test/fauxgame-grailsPlugins" />
     <exclude-output />
     <content url="file://$USER_HOME$/.grails/2.2.2/projects/fauxgame/plugins/cache-1.0.1">
       <sourceFolder url="file://$USER_HOME$/.grails/2.2.2/projects/fauxgame/plugins/cache-1.0.1/src/java" isTestSource="false" />
@@ -42,6 +44,9 @@
       <sourceFolder url="file://$USER_HOME$/.grails/2.2.2/projects/fauxgame/plugins/resources-1.1.6/src/groovy" isTestSource="false" />
       <sourceFolder url="file://$USER_HOME$/.grails/2.2.2/projects/fauxgame/plugins/resources-1.1.6/grails-app/i18n" isTestSource="false" />
       <sourceFolder url="file://$USER_HOME$/.grails/2.2.2/projects/fauxgame/plugins/resources-1.1.6/grails-app/taglib" isTestSource="false" />
+    </content>
+    <content url="file://$USER_HOME$/.grails/2.2.2/projects/fauxgame/plugins/spring-security-cas-1.0.5">
+      <sourceFolder url="file://$USER_HOME$/.grails/2.2.2/projects/fauxgame/plugins/spring-security-cas-1.0.5/src/java" isTestSource="false" />
     </content>
     <content url="file://$USER_HOME$/.grails/2.2.2/projects/fauxgame/plugins/spring-security-core-1.2.7.3">
       <sourceFolder url="file://$USER_HOME$/.grails/2.2.2/projects/fauxgame/plugins/spring-security-core-1.2.7.3/src/java" isTestSource="false" />

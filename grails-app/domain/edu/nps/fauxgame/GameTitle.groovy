@@ -5,6 +5,7 @@ class GameTitle {
   static hasMany = [gameInstances: GameInstance]
   String uriToken
   String displayName
+  Integer numberPositions = 0
   Date dateCreated
   Date lastUpdated
 
@@ -12,4 +13,9 @@ class GameTitle {
     uriToken blank: false, unique: true
     displayName blank: true
   }
+
+  String toString() {
+    return "$uriToken, $numberPositions"
+  }
+
 }

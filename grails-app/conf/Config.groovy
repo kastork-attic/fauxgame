@@ -102,6 +102,8 @@ grails.plugins.springsecurity.interceptUrlMap = [
     '/j_spring_cas_security_check': ['IS_AUTHENTICATED_ANONYMOUSLY'],
     '/secure/**': ['ROLE_ADMIN'],
     '/login/**': ['IS_AUTHENTICATED_ANONYMOUSLY'],
+    '/**/new' : ['IS_AUTHENTICATED_ANONYMOUSLY'],
+    '/**/play' : ['IS_AUTHENTICATED_ANONYMOUSLY'],
     '/**': ['IS_AUTHENTICATED_FULLY']
 ]
 

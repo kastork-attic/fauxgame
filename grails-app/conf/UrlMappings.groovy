@@ -18,9 +18,10 @@ class UrlMappings {
     //
     //  action should be new or play
 
-//    "/$gameTitle/$action" {
-//
-//    }
+    "/$gameTitle/new" {
+      controller = "new"
+      action = "createGame"
+    }
 
     "/"(view: "/index")
     "500"(view: '/error')
