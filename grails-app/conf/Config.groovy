@@ -99,10 +99,10 @@ log4j = {
 grails.plugins.springsecurity.rejectIfNoRule = true
 grails.plugins.springsecurity.securityConfigType = "InterceptUrlMap"
 grails.plugins.springsecurity.interceptUrlMap = [
-    '/j_spring_cas_security_check' : ['IS_AUTHENTICATED_ANONYMOUSLY'],
+    '/j_spring_cas_security_check': ['IS_AUTHENTICATED_ANONYMOUSLY'],
     '/secure/**': ['ROLE_ADMIN'],
-    '/foo/**': ['IS_AUTHENTICATED_FULLY'],
-    '/login/**': ['IS_AUTHENTICATED_ANONYMOUSLY']
+    '/login/**': ['IS_AUTHENTICATED_ANONYMOUSLY'],
+    '/**': ['IS_AUTHENTICATED_FULLY']
 ]
 
 grails.plugins.springsecurity.providerNames = ["casAuthenticationProvider"]
