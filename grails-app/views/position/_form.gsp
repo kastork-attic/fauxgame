@@ -18,19 +18,19 @@
 	<g:select id="gameInstance" name="gameInstance.id" from="${edu.nps.fauxgame.GameInstance.list()}" optionKey="id" required="" value="${positionInstance?.gameInstance?.id}" class="many-to-one"/>
 </div>
 
-<div class="fieldcontain ${hasErrors(bean: positionInstance, field: 'paramName', 'error')} ">
-	<label for="paramName">
-		<g:message code="position.paramName.label" default="Param Name" />
-		
-	</label>
-	<g:textField name="paramName" value="${positionInstance?.paramName}"/>
-</div>
-
 <div class="fieldcontain ${hasErrors(bean: positionInstance, field: 'playerIdent', 'error')} ">
 	<label for="playerIdent">
 		<g:message code="position.playerIdent.label" default="Player Ident" />
 		
 	</label>
 	<g:textField name="playerIdent" value="${positionInstance?.playerIdent}"/>
+</div>
+
+<div class="fieldcontain ${hasErrors(bean: positionInstance, field: 'roleParam', 'error')} ">
+	<label for="roleParam">
+		<g:message code="position.roleParam.label" default="Role Param" />
+		
+	</label>
+	<g:textField name="roleParam" value="${positionInstance?.roleParam}"/>
 </div>
 

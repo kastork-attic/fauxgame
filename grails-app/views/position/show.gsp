@@ -41,20 +41,20 @@
 				</li>
 				</g:if>
 			
-				<g:if test="${positionInstance?.paramName}">
-				<li class="fieldcontain">
-					<span id="paramName-label" class="property-label"><g:message code="position.paramName.label" default="Param Name" /></span>
-					
-						<span class="property-value" aria-labelledby="paramName-label"><g:fieldValue bean="${positionInstance}" field="paramName"/></span>
-					
-				</li>
-				</g:if>
-			
 				<g:if test="${positionInstance?.playerIdent}">
 				<li class="fieldcontain">
 					<span id="playerIdent-label" class="property-label"><g:message code="position.playerIdent.label" default="Player Ident" /></span>
 					
 						<span class="property-value" aria-labelledby="playerIdent-label"><g:fieldValue bean="${positionInstance}" field="playerIdent"/></span>
+					
+				</li>
+				</g:if>
+			
+				<g:if test="${positionInstance?.roleParam}">
+				<li class="fieldcontain">
+					<span id="roleParam-label" class="property-label"><g:message code="position.roleParam.label" default="Role Param" /></span>
+					
+						<span class="property-value" aria-labelledby="roleParam-label"><g:fieldValue bean="${positionInstance}" field="roleParam"/></span>
 					
 				</li>
 				</g:if>

@@ -17,7 +17,7 @@ class NewController {
     params.entrySet().each { e ->
 //      println e.key
 //      println e.value
-      if (!["gameTitle", "app", "dbg", "lang", "fmt", "ver"].contains(e.key)) {
+      if (!["gameTitle", "app", "dbg", "lang", "fmt", "ver", "action", "controller"].contains(e.key)) {
         positions[e.key] = e.value
       }
     }
@@ -30,7 +30,7 @@ class NewController {
       t = new GameTitle(uriToken: params.gameTitle, displayName: params.gameTitle, numberPositions: positions.size(), gameVersion: params.ver).save(flush: true)
     } else {
       if( t.numberPositions != positions.size()) {
-        response.status = 400
+        response.status = 400n
         render "Attempt to redefine a game title's position structure."
       }
     }

@@ -59,12 +59,12 @@
 				</li>
 				</g:if>
 			
-				<g:if test="${gameInstanceInstance?.position}">
+				<g:if test="${gameInstanceInstance?.positions}">
 				<li class="fieldcontain">
-					<span id="position-label" class="property-label"><g:message code="gameInstance.position.label" default="Position" /></span>
+					<span id="positions-label" class="property-label"><g:message code="gameInstance.positions.label" default="Positions" /></span>
 					
-						<g:each in="${gameInstanceInstance.position}" var="p">
-						<span class="property-value" aria-labelledby="position-label"><g:link controller="position" action="show" id="${p.id}">${p?.encodeAsHTML()}</g:link></span>
+						<g:each in="${gameInstanceInstance.positions}" var="p">
+						<span class="property-value" aria-labelledby="positions-label"><g:link controller="position" action="show" id="${p.id}">${p?.encodeAsHTML()}</g:link></span>
 						</g:each>
 					
 				</li>

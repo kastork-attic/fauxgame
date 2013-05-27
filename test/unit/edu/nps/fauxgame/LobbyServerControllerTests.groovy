@@ -7,7 +7,6 @@ import grails.test.mixin.*
 
 @TestFor(LobbyServerController)
 @Mock(LobbyServer)
-@Ignore("Not implemented")
 class LobbyServerControllerTests {
 
     def populateValidParams(params) {

@@ -30,7 +30,11 @@
 					
 						<g:sortableColumn property="dateCreated" title="${message(code: 'gameTitle.dateCreated.label', default: 'Date Created')}" />
 					
+						<g:sortableColumn property="gameVersion" title="${message(code: 'gameTitle.gameVersion.label', default: 'Game Version')}" />
+					
 						<g:sortableColumn property="lastUpdated" title="${message(code: 'gameTitle.lastUpdated.label', default: 'Last Updated')}" />
+					
+						<g:sortableColumn property="numberPositions" title="${message(code: 'gameTitle.numberPositions.label', default: 'Number Positions')}" />
 					
 					</tr>
 				</thead>
@@ -44,7 +48,11 @@
 					
 						<td><g:formatDate date="${gameTitleInstance.dateCreated}" /></td>
 					
+						<td>${fieldValue(bean: gameTitleInstance, field: "gameVersion")}</td>
+					
 						<td><g:formatDate date="${gameTitleInstance.lastUpdated}" /></td>
+					
+						<td>${fieldValue(bean: gameTitleInstance, field: "numberPositions")}</td>
 					
 					</tr>
 				</g:each>

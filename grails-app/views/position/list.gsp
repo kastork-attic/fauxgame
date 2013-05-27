@@ -28,9 +28,9 @@
 					
 						<th><g:message code="position.gameInstance.label" default="Game Instance" /></th>
 					
-						<g:sortableColumn property="paramName" title="${message(code: 'position.paramName.label', default: 'Param Name')}" />
-					
 						<g:sortableColumn property="playerIdent" title="${message(code: 'position.playerIdent.label', default: 'Player Ident')}" />
+					
+						<g:sortableColumn property="roleParam" title="${message(code: 'position.roleParam.label', default: 'Role Param')}" />
 					
 					</tr>
 				</thead>
@@ -42,9 +42,9 @@
 					
 						<td>${fieldValue(bean: positionInstance, field: "gameInstance")}</td>
 					
-						<td>${fieldValue(bean: positionInstance, field: "paramName")}</td>
-					
 						<td>${fieldValue(bean: positionInstance, field: "playerIdent")}</td>
+					
+						<td>${fieldValue(bean: positionInstance, field: "roleParam")}</td>
 					
 					</tr>
 				</g:each>

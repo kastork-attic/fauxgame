@@ -18,14 +18,14 @@
 	<g:select id="lobbyServer" name="lobbyServer.id" from="${edu.nps.fauxgame.LobbyServer.list()}" optionKey="id" required="" value="${gameInstanceInstance?.lobbyServer?.id}" class="many-to-one"/>
 </div>
 
-<div class="fieldcontain ${hasErrors(bean: gameInstanceInstance, field: 'position', 'error')} ">
-	<label for="position">
-		<g:message code="gameInstance.position.label" default="Position" />
+<div class="fieldcontain ${hasErrors(bean: gameInstanceInstance, field: 'positions', 'error')} ">
+	<label for="positions">
+		<g:message code="gameInstance.positions.label" default="Positions" />
 		
 	</label>
 	
 <ul class="one-to-many">
-<g:each in="${gameInstanceInstance?.position?}" var="p">
+<g:each in="${gameInstanceInstance?.positions?}" var="p">
     <li><g:link controller="position" action="show" id="${p.id}">${p?.encodeAsHTML()}</g:link></li>
 </g:each>
 <li class="add">

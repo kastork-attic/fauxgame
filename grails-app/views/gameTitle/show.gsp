@@ -61,11 +61,29 @@
 				</li>
 				</g:if>
 			
+				<g:if test="${gameTitleInstance?.gameVersion}">
+				<li class="fieldcontain">
+					<span id="gameVersion-label" class="property-label"><g:message code="gameTitle.gameVersion.label" default="Game Version" /></span>
+					
+						<span class="property-value" aria-labelledby="gameVersion-label"><g:fieldValue bean="${gameTitleInstance}" field="gameVersion"/></span>
+					
+				</li>
+				</g:if>
+			
 				<g:if test="${gameTitleInstance?.lastUpdated}">
 				<li class="fieldcontain">
 					<span id="lastUpdated-label" class="property-label"><g:message code="gameTitle.lastUpdated.label" default="Last Updated" /></span>
 					
 						<span class="property-value" aria-labelledby="lastUpdated-label"><g:formatDate date="${gameTitleInstance?.lastUpdated}" /></span>
+					
+				</li>
+				</g:if>
+			
+				<g:if test="${gameTitleInstance?.numberPositions}">
+				<li class="fieldcontain">
+					<span id="numberPositions-label" class="property-label"><g:message code="gameTitle.numberPositions.label" default="Number Positions" /></span>
+					
+						<span class="property-value" aria-labelledby="numberPositions-label"><g:fieldValue bean="${gameTitleInstance}" field="numberPositions"/></span>
 					
 				</li>
 				</g:if>

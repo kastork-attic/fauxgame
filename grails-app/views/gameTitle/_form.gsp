@@ -35,3 +35,19 @@
 
 </div>
 
+<div class="fieldcontain ${hasErrors(bean: gameTitleInstance, field: 'gameVersion', 'error')} ">
+	<label for="gameVersion">
+		<g:message code="gameTitle.gameVersion.label" default="Game Version" />
+		
+	</label>
+	<g:textField name="gameVersion" value="${gameTitleInstance?.gameVersion}"/>
+</div>
+
+<div class="fieldcontain ${hasErrors(bean: gameTitleInstance, field: 'numberPositions', 'error')} required">
+	<label for="numberPositions">
+		<g:message code="gameTitle.numberPositions.label" default="Number Positions" />
+		<span class="required-indicator">*</span>
+	</label>
+	<g:field name="numberPositions" type="number" value="${gameTitleInstance.numberPositions}" required=""/>
+</div>
+

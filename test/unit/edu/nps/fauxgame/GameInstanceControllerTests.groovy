@@ -7,7 +7,6 @@ import grails.test.mixin.*
 
 @TestFor(GameInstanceController)
 @Mock(GameInstance)
-@Ignore("Not implemented")
 class GameInstanceControllerTests {
 
     def populateValidParams(params) {
