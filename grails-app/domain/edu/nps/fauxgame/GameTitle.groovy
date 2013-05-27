@@ -6,6 +6,7 @@ class GameTitle {
   String uriToken
   String displayName
   Integer numberPositions = 0
+  String gameVersion
   Date dateCreated
   Date lastUpdated
 

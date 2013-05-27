@@ -17,17 +17,17 @@ class NewController {
     params.entrySet().each { e ->
 //      println e.key
 //      println e.value
-      if (!["gameTitle", "app", "dbg", "lang", "fmt"].contains(e.key)) {
+      if (!["gameTitle", "app", "dbg", "lang", "fmt", "ver"].contains(e.key)) {
         positions[e.key] = e.value
       }
     }
 
     println positions
 
-    def t = GameTitle.findByUriToken(params.gameTitle)
+    def t = GameTitle.findByUriTokenAndGameVersion(params.gameTitle, params.ver)
 
     if (null == t) {
-      t = new GameTitle(uriToken: params.gameTitle, displayName: params.gameTitle, numberPositions: positions.size()).save(flush: true)
+      t = new GameTitle(uriToken: params.gameTitle, displayName: params.gameTitle, numberPositions: positions.size(), gameVersion: params.ver).save(flush: true)
     } else {
       if( t.numberPositions != positions.size()) {
         response.status = 400
@@ -35,6 +35,7 @@ class NewController {
       }
     }
 
+    // TODO Be intelligent about lobby server configurations
     def newGame = new GameInstance(
         gameTitle: t,
         lobbyServer: LobbyServer.get(1)
@@ -60,6 +61,29 @@ class NewController {
   }
 
   def buildNewGameResponse(GameInstance game) {
-    [stat: "OK", glst: [cnt: "1", game: [gid: "$game.id"]]]
+
+
+    def positions = game.positions
+
+    def updateRecords = []
+    positions.eachWithIndex { p, idx ->
+      boolean attn = false
+      if(idx == 0) {
+        attn = true
+      }
+      updateRecords.add(buildUpdateForPosition(game, p, attn))
+    }
+    def result = [stat: "OK", glst: [cnt: "1", game: [gid: "$game.id"]], update: updateRecords]
+
+  }
+
+  def buildUpdateForPosition(GameInstance g, Position p, boolean attn) {
+
+    if(attn) {
+      p.state = 'ATTN'
+      p.save(flush: true)
+    }
+
+    [gameInstanceId: "$g.id", gameTitle: g.gameTitle.uriToken, gameVersion: "$g.gameTitle.gameVersion", gamingId: p.playerIdent, state: p.state]
   }
 }

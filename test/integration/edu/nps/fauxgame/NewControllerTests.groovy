@@ -18,7 +18,7 @@ class NewControllerTests {
   @Test
   void testNoExistingGameTitleJSON() {
 
-    String testResult = '{"stat":"OK","glst":{"cnt":"1","game":{"gid":"1"}}}'
+    String testResult = '{"stat":"OK","glst":{"cnt":"1","game":{"gid":"1"}},"update":[{"gameInstanceId":"1","gameTitle":"test-faux","gameVersion":"1.0","gamingId":"PlayerTwo","state":"ATTN"},{"gameInstanceId":"1","gameTitle":"test-faux","gameVersion":"1.0","gamingId":"PlayerOne","state":"PEND"}]}'
 
     def controller = new NewController()
 
@@ -29,6 +29,7 @@ class NewControllerTests {
     controller.request.addParameter("dbg", "0")
     controller.request.addParameter("lang", "en")
     controller.request.addParameter("fmt", "json")
+    controller.request.addParameter("ver", "1.0")
 
     controller.createGame()
 
