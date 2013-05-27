@@ -88,16 +88,24 @@ log4j = {
       'org.springframework',
       'org.hibernate',
       'net.sf.ehcache.hibernate'
+
+//  debug 'grails.plugins.springsecurity'
+//  debug 'org.codehaus.groovy.grails.plugins.springsecurity'
+//  debug 'org.springframework.security'
+//  debug 'org.jasig.cas.client'
+
 }
 
 grails.plugins.springsecurity.rejectIfNoRule = true
 grails.plugins.springsecurity.securityConfigType = "InterceptUrlMap"
 grails.plugins.springsecurity.interceptUrlMap = [
-    '/**' : ['IS_AUTHENTICATED_FULLY']
+    '/j_spring_cas_security_check' : ['IS_AUTHENTICATED_ANONYMOUSLY'],
+    '/secure/**': ['ROLE_ADMIN'],
+    '/foo/**': ['IS_AUTHENTICATED_FULLY'],
+    '/login/**': ['IS_AUTHENTICATED_ANONYMOUSLY']
 ]
 
 grails.plugins.springsecurity.providerNames = ["casAuthenticationProvider"]
-
 
 // Added by the Spring Security Core plugin:
 grails.plugins.springsecurity.userLookup.userDomainClassName = 'edu.nps.fauxgame.User'

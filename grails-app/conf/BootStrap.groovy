@@ -6,12 +6,12 @@ class BootStrap {
 
   def init = { servletContext ->
 
-    def u = new User(usernname: 'kastork@nps.edu',
-                     password: 'foo',
-                     enabled: true,
-                     accountExpired: false,
-                     accountLockec: false,
-                     passwordExpired: false).save(flush: true)
+    def u = new User(username: 'kastork@nps.edu',
+        password: 'foo',
+        enabled: true,
+        accountExpired: false,
+        accountLocked: false,
+        passwordExpired: false).save(flush: true)
 
     def r = new Role(authority: 'ROLE_ADMIN').save(flush: true)
 
