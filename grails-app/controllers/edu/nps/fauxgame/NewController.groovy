@@ -30,7 +30,7 @@ class NewController {
       t = new GameTitle(uriToken: params.gameTitle, displayName: params.gameTitle, numberPositions: positions.size(), gameVersion: params.ver).save(flush: true)
     } else {
       if( t.numberPositions != positions.size()) {
-        response.status = 400n
+        response.status = 400
         render "Attempt to redefine a game title's position structure."
       }
     }

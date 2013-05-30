@@ -23,6 +23,16 @@ class UrlMappings {
       action = "createGame"
     }
 
+    "/$gameTitle/play" {
+      controller = "play"
+      action = "playEndpoint"
+    }
+
+    "/play/client" {
+      controller = "play"
+      action = "serveGameClient"
+    }
+
     "/"(view: "/index")
     "500"(view: '/error')
   }

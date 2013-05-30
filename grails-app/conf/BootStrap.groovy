@@ -14,9 +14,11 @@ class BootStrap {
         accountLocked: false,
         passwordExpired: false).save(flush: true)
 
-    def r = new Role(authority: 'ROLE_ADMIN').save(flush: true)
-
+    def r = new Role(authority: 'ROLE_PLAYER').save(flush: true)
     def ur = new UserRole(user: u, role: r).save(flush: true)
+
+    r = new Role(authority: 'ROLE_ADMIN').save(flush: true)
+    ur = new UserRole(user: u, role: r).save(flush: true)
 
     def lobby = new LobbyServer(baseURL: 'http://localhost:8080',
         profile: '/api/secure/jsonws/egs-portlet.gamingprofile',
