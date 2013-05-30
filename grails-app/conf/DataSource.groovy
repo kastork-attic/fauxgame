@@ -13,8 +13,8 @@ hibernate {
 environments {
   development {
     dataSource {
-      dbCreate = "create-drop" // one of 'create', 'create-drop', 'update', 'validate', ''
-      url = "jdbc:h2:mem:devDb;MVCC=TRUE;LOCK_TIMEOUT=10000"
+      dbCreate = "update" // one of 'create', 'create-drop', 'update', 'validate', ''
+      url = "jdbc:h2:devDb;MVCC=TRUE;LOCK_TIMEOUT=10000"
     }
   }
   test {
@@ -25,13 +25,17 @@ environments {
   }
   production {
     dataSource {
-      dbCreate = "update"
-      url = "jdbc:h2:prodDb;MVCC=TRUE;LOCK_TIMEOUT=10000"
       pooled = true
+      driverClassName = "com.mysql.jdbc.Driver"
+      dbCreate = "update"
+      username = System.getProperty("PARAM1")
+      password = System.getProperty("PARAM2")
+      dialect = 'org.hibernate.dialect.MySQL5InnoDBDialect'
+      url = System.getProperty("JDBC_CONNECTION_STRING")
       properties {
         maxActive = -1
-        minEvictableIdleTimeMillis = 1800000
-        timeBetweenEvictionRunsMillis = 1800000
+        minEvictableIdleTimeMillis = 1000 * 60 * 30
+        timeBetweenEvictionRunsMillis = 1000 * 60 * 30
         numTestsPerEvictionRun = 3
         testOnBorrow = true
         testWhileIdle = true

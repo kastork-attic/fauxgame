@@ -62,10 +62,15 @@ grails.hibernate.cache.queries = false
 environments {
   development {
     grails.logging.jul.usebridge = true
+    grails.plugins.springsecurity.cas.serviceUrl = 'http://localhost:9000/fauxgame/j_spring_cas_security_check'
+    grails.plugins.springsecurity.cas.proxyCallbackUrl = 'http://localhost:9000/fauxgame/secure/receptor'
+
   }
   production {
     grails.logging.jul.usebridge = false
-    // TODO: grails.serverURL = "http://www.changeme.com"
+    grails.serverURL = "http://faux-game.elasticbeanstalk.com"
+    grails.plugins.springsecurity.cas.serviceUrl = 'http://faux-game.elasticbeanstalk.com/j_spring_cas_security_check'
+    grails.plugins.springsecurity.cas.proxyCallbackUrl = 'http://faux-game.elasticbeanstalk.com/secure/receptor'
   }
 }
 
@@ -102,9 +107,10 @@ grails.plugins.springsecurity.interceptUrlMap = [
     '/j_spring_cas_security_check': ['IS_AUTHENTICATED_ANONYMOUSLY'],
     '/secure/**': ['ROLE_ADMIN'],
     '/login/**': ['IS_AUTHENTICATED_ANONYMOUSLY'],
-    '/**/new' : ['IS_AUTHENTICATED_ANONYMOUSLY'],
-    '/**/play' : ['IS_AUTHENTICATED_ANONYMOUSLY'],
-    '/**': ['IS_AUTHENTICATED_FULLY']
+    '/**/new': ['IS_AUTHENTICATED_ANONYMOUSLY'],
+    '/**/play': ['IS_AUTHENTICATED_FULLY', 'ROLE_PLAYER'],
+    '/play/client': ['ROLE_PLAYER'],
+    '/**': ['ROLE_ADMIN']
 ]
 
 grails.plugins.springsecurity.providerNames = ["casAuthenticationProvider"]
@@ -116,7 +122,5 @@ grails.plugins.springsecurity.authority.className = 'edu.nps.fauxgame.Role'
 
 
 grails.plugins.springsecurity.cas.loginUri = '/login'
-grails.plugins.springsecurity.cas.serviceUrl = 'http://localhost:9000/fauxgame/j_spring_cas_security_check'
 grails.plugins.springsecurity.cas.serverUrlPrefix = 'https://cas.nps.edu/ecco'
-grails.plugins.springsecurity.cas.proxyCallbackUrl = 'http://localhost:9000/fauxgame/secure/receptor'
 grails.plugins.springsecurity.cas.proxyReceptorUrl = '/secure/receptor'
