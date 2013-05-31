@@ -43,3 +43,4 @@
 *.iws
 
 workspace.xml
+.elasticbeanstalk/
