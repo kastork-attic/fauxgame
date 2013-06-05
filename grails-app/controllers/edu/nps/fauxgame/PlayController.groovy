@@ -1,5 +1,7 @@
 package edu.nps.fauxgame
 
+import edu.nps.faux.EgsGamebotService
+import net.sf.json.JSONArray
 import net.sf.json.JSONObject
 import org.codehaus.groovy.grails.plugins.springsecurity.GrailsUser
 
@@ -7,6 +9,7 @@ class PlayController {
 
   def springSecurityService
   EgsProfileService egsProfileService
+  EgsGamebotService egsGamebotService
 
   def index() {}
 
@@ -44,8 +47,41 @@ class PlayController {
         positionInstance.roleParam,
         gameInstance.id.toString())
 
-
     render(view: 'show', model: [positionInstance: positionInstance, gameInstance: gameInstance, egsProfile: returnedProfile])
   }
 
+  def reload(int pid, String state) {
+
+    Position positionInstance = Position.get(pid)
+    GameInstance gameInstance = GameInstance.get(positionInstance.gameInstanceId)
+
+    def updates = [[gameInstanceId: gameInstance.id.toString(),
+        gameTitle: gameInstance.gameTitle.uriToken,
+        gameVersion: gameInstance.gameTitle.gameVersion.toString(),
+        gamingId: positionInstance.playerIdent,
+        state: state,
+    ]]
+
+    egsGamebotService.gameUpdates(1, updates)
+
+    redirect(action: 'client',
+        params: [pid: pid, gid: positionInstance.gameInstance.id])
+  }
+
+  def toInit(int pid) {
+    println "Init clicked: ${pid}"
+    reload(pid, "INIT")
+  }
+  def toPend(int pid) {
+    println "Pend clicked: ${pid}"
+    reload(pid, "PEND")
+  }
+  def toAttn(int pid) {
+    println "Attn clicked: ${pid}"
+    reload(pid, "ATTN")
+  }
+  def toOver(int pid) {
+    println "Over clicked: ${pid}"
+    reload(pid, "OVER")
+  }
 }

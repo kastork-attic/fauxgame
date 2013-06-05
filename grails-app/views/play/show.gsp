@@ -17,6 +17,10 @@
 
 <table>
   <tr>
+    <td>Game Title Id</td>
+    <td>${gameInstance?.gameTitle.id}</td>
+  </tr>
+  <tr>
     <td>URI Token - This is the uri path element that identifies the game title</td>
     <td>${gameInstance?.gameTitle.uriToken}</td>
   </tr>
@@ -50,6 +54,10 @@
 
 <table>
   <tr>
+    <td>Game Instance Id</td>
+    <td>${gameInstance?.id}</td>
+  </tr>
+  <tr>
     <td>Liferay Server (EGS)</td>
     <td>${gameInstance?.lobbyServer.baseURL}</td>
   </tr>
@@ -69,12 +77,14 @@
 
 <table>
   <tr>
+    <th>Position Id</th>
     <th>Role</th>
     <th>Player</th>
     <th>Game State</th>
   </tr>
 <g:each in="${gameInstance.positions}" var="p" >
   <tr>
+    <td>${p.id}</td>
     <td>${p.roleParam}</td>
     <td>${p.playerIdent}</td>
     <td>${p.state}</td>
@@ -120,7 +130,12 @@
 <h2>Game Actions</h2>
 <p>Since I'm not a game, all I let you do is change the state of your player/game
 combination and send an update to EGS.  This is used to test out the gamebot update mechanisms.</p>
-
+<ul>
+  <li><g:link action="toInit" id="${positionInstance.id}">Change to INIT state</g:link></li>
+  <li><g:link action="toPend" id="${positionInstance.id}">Change to PEND state</g:link></li>
+  <li><g:link action="toAttn" id="${positionInstance.id}">Change to ATTN state</g:link></li>
+  <li><g:link action="toOver" id="${positionInstance.id}">Change to OVER state</g:link></li>
+</ul>
 
 </body>
 </html>

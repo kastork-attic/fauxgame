@@ -33,6 +33,26 @@ class UrlMappings {
       action = "serveGameClient"
     }
 
+    "/play/toInit/$pid" {
+      controller = "play"
+      action = "toInit"
+    }
+
+    "/play/toPend/$pid" {
+      controller = "play"
+      action = "toPend"
+    }
+
+    "/play/toAttn/$pid" {
+      controller = "play"
+      action = "toAttn"
+    }
+
+    "/play/toOver/$pid" {
+      controller = "play"
+      action = "toOver"
+    }
+
     "/"(view: "/index")
     "500"(view: '/error')
   }
