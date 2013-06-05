@@ -82,7 +82,25 @@
 </g:each>
 </table>
 
-<h2>You</h2>
+<h2>What EGS thinks of you</h2>
+<p>Results of profile query back to EGS</p>
+<table>
+  <tr>
+    <td>Your true self</td>
+    <td>${egsProfile?.casId}</td>
+  </tr>
+  <tr>
+    <td>Player</td>
+    <td>${egsProfile?.gamingId}</td>
+  </tr>
+  <tr>
+    <td>The game instance we're talking about</td>
+    <td>${egsProfile?.gameInstanceId}</td>
+  </tr>
+</table>
+
+<h2>What I think of you</h2>
+<p>What I've told EGS about you.</p>
 
 <table>
   <tr>
@@ -98,6 +116,10 @@
     <td>${positionInstance?.state}</td>
   </tr>
 </table>
+
+<h2>Game Actions</h2>
+<p>Since I'm not a game, all I let you do is change the state of your player/game
+combination and send an update to EGS.  This is used to test out the gamebot update mechanisms.</p>
 
 
 </body>
