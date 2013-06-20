@@ -108,8 +108,10 @@ grails.plugins.springsecurity.interceptUrlMap = [
     '/secure/**': ['ROLE_ADMIN'],
     '/login/**': ['IS_AUTHENTICATED_ANONYMOUSLY'],
     '/**/new': ['IS_AUTHENTICATED_ANONYMOUSLY'],
-    '/**/play': ['IS_AUTHENTICATED_FULLY', 'ROLE_PLAYER'],
-    '/play/client': ['ROLE_PLAYER'],
+    '/**/play/': ['ROLE_PLAYER'],
+    '/**/play/**': ['ROLE_PLAYER'],
+    '/play/**': ['ROLE_PLAYER'],
+    'play/**': ['ROLE_PLAYER'],
     '/**': ['ROLE_ADMIN']
 ]
 

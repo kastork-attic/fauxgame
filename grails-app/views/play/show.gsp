@@ -107,6 +107,10 @@
     <td>The game instance we're talking about</td>
     <td>${egsProfile?.gameInstanceId}</td>
   </tr>
+  <tr>
+    <td>Your Faux authorities</td>
+    <td>${authorities}</td>
+  </tr>
 </table>
 
 <h2>What I think of you</h2>

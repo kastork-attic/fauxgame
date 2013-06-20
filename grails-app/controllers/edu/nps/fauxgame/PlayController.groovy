@@ -26,8 +26,8 @@ class PlayController {
 
 
       redirect(action: 'client',
-               params: [pid: positionInstance.id,
-                        gid: gameInstance.id])
+          params: [pid: positionInstance.id,
+              gid: gameInstance.id])
     }
 
   }
@@ -35,7 +35,7 @@ class PlayController {
   def serveGameClient(int pid, int gid) {
 
     GrailsUser grailsUser = springSecurityService.principal
-
+    def authorities = grailsUser.authorities
     def positionInstance = Position.get(pid)
     println positionInstance
     def gameInstance = GameInstance.get(gid)
@@ -47,13 +47,22 @@ class PlayController {
         positionInstance.roleParam,
         gameInstance.id.toString())
 
-    render(view: 'show', model: [positionInstance: positionInstance, gameInstance: gameInstance, egsProfile: returnedProfile])
+
+    render(view: 'show', model:
+        [positionInstance: positionInstance,
+            gameInstance: gameInstance,
+            egsProfile: returnedProfile,
+            authorities: authorities
+        ])
   }
 
   def reload(int pid, String state) {
 
     Position positionInstance = Position.get(pid)
     GameInstance gameInstance = GameInstance.get(positionInstance.gameInstanceId)
+
+    positionInstance.setState(state)
+    positionInstance.save(flush: true)
 
     def updates = [[gameInstanceId: gameInstance.id.toString(),
         gameTitle: gameInstance.gameTitle.uriToken,
@@ -72,14 +81,17 @@ class PlayController {
     println "Init clicked: ${pid}"
     reload(pid, "INIT")
   }
+
   def toPend(int pid) {
     println "Pend clicked: ${pid}"
     reload(pid, "PEND")
   }
+
   def toAttn(int pid) {
     println "Attn clicked: ${pid}"
     reload(pid, "ATTN")
   }
+
   def toOver(int pid) {
     println "Over clicked: ${pid}"
     reload(pid, "OVER")
