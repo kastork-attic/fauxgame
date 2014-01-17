@@ -61,12 +61,21 @@ grails.hibernate.cache.queries = false
 
 environments {
   development {
+    grails.app.context = '/'
     grails.logging.jul.usebridge = true
-    grails.plugins.springsecurity.cas.serviceUrl = 'http://localhost:9000/fauxgame/j_spring_cas_security_check'
-    grails.plugins.springsecurity.cas.proxyCallbackUrl = 'http://localhost:9000/fauxgame/secure/receptor'
+    grails.plugins.springsecurity.cas.serviceUrl = 'http://localhost:9001/j_spring_cas_security_check'
+    grails.plugins.springsecurity.cas.proxyCallbackUrl = 'http://localhost:9001/secure/receptor'
+
+  }
+  bees {
+    grails.app.context = '/'
+    grails.logging.jul.usebridge = true
+    grails.plugins.springsecurity.cas.serviceUrl = 'http://fauxgame.kastork.cloudbees.net/j_spring_cas_security_check'
+    grails.plugins.springsecurity.cas.proxyCallbackUrl = 'http://fauxgame.kastork.cloudbees.net/secure/receptor'
 
   }
   production {
+    grails.app.context = '/'
     grails.logging.jul.usebridge = false
     grails.serverURL = "http://faux-game.elasticbeanstalk.com"
     grails.plugins.springsecurity.cas.serviceUrl = 'http://faux-game.elasticbeanstalk.com/j_spring_cas_security_check'
@@ -78,9 +87,9 @@ environments {
 log4j = {
   // Example of changing the log pattern for the default console appender:
   //
-  //appenders {
-  //    console name:'stdout', layout:pattern(conversionPattern: '%c{2} %m%n')
-  //}
+  appenders {
+      console name:'stdout', layout:pattern(conversionPattern: '%c{2} %m%n')
+  }
 
   error 'org.codehaus.groovy.grails.web.servlet',        // controllers
       'org.codehaus.groovy.grails.web.pages',          // GSP
@@ -98,7 +107,13 @@ log4j = {
 //  debug 'org.codehaus.groovy.grails.plugins.springsecurity'
 //  debug 'org.springframework.security'
 //  debug 'org.jasig.cas.client'
-
+  root {
+    error 'stdout'
+//    info 'stdout'
+    warn 'stdout'
+//    debug 'stdout'
+    additivity = true
+  }
 }
 
 grails.plugins.springsecurity.rejectIfNoRule = true
