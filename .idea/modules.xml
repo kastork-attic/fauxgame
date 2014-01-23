@@ -3,7 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/fauxgame.iml" filepath="$PROJECT_DIR$/fauxgame.iml" />
-      <module fileurl="file://$PROJECT_DIR$/fauxgame-grailsPlugins.iml" filepath="$PROJECT_DIR$/fauxgame-grailsPlugins.iml" />
     </modules>
   </component>
 </project>

@@ -75,6 +75,8 @@
     <orderEntry type="library" exported="" name="grails-2.2.2" level="application" />
     <orderEntry type="library" name="grails-2.2.2" level="application" />
     <orderEntry type="module" module-name="fauxgame-grailsPlugins" />
+    <orderEntry type="library" name="grails-2.2.4" level="application" />
+    <orderEntry type="library" name="grails-2.2.4" level="application" />
   </component>
 </module>
 
