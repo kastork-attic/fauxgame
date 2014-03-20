@@ -1,9 +1,9 @@
 package edu.nps.fauxgame
 
 import edu.nps.faux.EgsGamebotService
+import grails.plugin.springsecurity.userdetails.GrailsUser
 import net.sf.json.JSONArray
 import net.sf.json.JSONObject
-import org.codehaus.groovy.grails.plugins.springsecurity.GrailsUser
 
 class PlayController {
 

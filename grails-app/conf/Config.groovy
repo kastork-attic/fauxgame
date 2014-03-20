@@ -34,6 +34,7 @@ grails.mime.types = [
 
 // What URL patterns should be processed by the resources plugin
 grails.resources.adhoc.patterns = ['/images/*', '/css/*', '/js/*', '/plugins/*']
+grails.resources.adhoc.excludes = ['**/WEB-INF/**','**/META-INF/**']
 
 // The default codec used to encode data with ${}
 grails.views.default.codec = "none" // none, html, base64
@@ -63,23 +64,23 @@ environments {
   development {
     grails.app.context = '/'
     grails.logging.jul.usebridge = true
-    grails.plugins.springsecurity.cas.serviceUrl = 'http://localhost:9001/j_spring_cas_security_check'
-    grails.plugins.springsecurity.cas.proxyCallbackUrl = 'http://localhost:9001/secure/receptor'
+    grails.plugin.springsecurity.cas.serviceUrl = 'http://localhost:9001/j_spring_cas_security_check'
+    grails.plugin.springsecurity.cas.proxyCallbackUrl = 'http://localhost:9001/secure/receptor'
 
   }
   bees {
     grails.app.context = '/'
     grails.logging.jul.usebridge = true
-    grails.plugins.springsecurity.cas.serviceUrl = 'http://fauxgame.kastork.cloudbees.net/j_spring_cas_security_check'
-    grails.plugins.springsecurity.cas.proxyCallbackUrl = 'http://fauxgame.kastork.cloudbees.net/secure/receptor'
+    grails.plugin.springsecurity.cas.serviceUrl = 'http://fauxgame.kastork.cloudbees.net/j_spring_cas_security_check'
+    grails.plugin.springsecurity.cas.proxyCallbackUrl = 'http://fauxgame.kastork.cloudbees.net/secure/receptor'
 
   }
   production {
     grails.app.context = '/'
     grails.logging.jul.usebridge = false
     grails.serverURL = "http://faux-game.elasticbeanstalk.com"
-    grails.plugins.springsecurity.cas.serviceUrl = 'http://faux-game.elasticbeanstalk.com/j_spring_cas_security_check'
-    grails.plugins.springsecurity.cas.proxyCallbackUrl = 'http://faux-game.elasticbeanstalk.com/secure/receptor'
+    grails.plugin.springsecurity.cas.serviceUrl = 'http://faux-game.elasticbeanstalk.com/j_spring_cas_security_check'
+    grails.plugin.springsecurity.cas.proxyCallbackUrl = 'http://faux-game.elasticbeanstalk.com/secure/receptor'
   }
 }
 
@@ -103,8 +104,8 @@ log4j = {
       'org.hibernate',
       'net.sf.ehcache.hibernate'
 
-//  debug 'grails.plugins.springsecurity'
-//  debug 'org.codehaus.groovy.grails.plugins.springsecurity'
+//  debug 'grails.plugin.springsecurity'
+//  debug 'org.codehaus.groovy.grails.plugin.springsecurity'
 //  debug 'org.springframework.security'
 //  debug 'org.jasig.cas.client'
   root {
@@ -116,9 +117,9 @@ log4j = {
   }
 }
 
-grails.plugins.springsecurity.rejectIfNoRule = true
-grails.plugins.springsecurity.securityConfigType = "InterceptUrlMap"
-grails.plugins.springsecurity.interceptUrlMap = [
+grails.plugin.springsecurity.rejectIfNoRule = true
+grails.plugin.springsecurity.securityConfigType = "InterceptUrlMap"
+grails.plugin.springsecurity.interceptUrlMap = [
     '/j_spring_cas_security_check': ['IS_AUTHENTICATED_ANONYMOUSLY'],
     '/secure/**': ['ROLE_ADMIN'],
     '/login/**': ['IS_AUTHENTICATED_ANONYMOUSLY'],
@@ -130,14 +131,14 @@ grails.plugins.springsecurity.interceptUrlMap = [
     '/**': ['ROLE_ADMIN']
 ]
 
-grails.plugins.springsecurity.providerNames = ["casAuthenticationProvider"]
+grails.plugin.springsecurity.providerNames = ["casAuthenticationProvider"]
 
 // Added by the Spring Security Core plugin:
-grails.plugins.springsecurity.userLookup.userDomainClassName = 'edu.nps.fauxgame.User'
-grails.plugins.springsecurity.userLookup.authorityJoinClassName = 'edu.nps.fauxgame.UserRole'
-grails.plugins.springsecurity.authority.className = 'edu.nps.fauxgame.Role'
+grails.plugin.springsecurity.userLookup.userDomainClassName = 'edu.nps.fauxgame.User'
+grails.plugin.springsecurity.userLookup.authorityJoinClassName = 'edu.nps.fauxgame.UserRole'
+grails.plugin.springsecurity.authority.className = 'edu.nps.fauxgame.Role'
 
 
-grails.plugins.springsecurity.cas.loginUri = '/login'
-grails.plugins.springsecurity.cas.serverUrlPrefix = 'https://cas.nps.edu/ecco'
-grails.plugins.springsecurity.cas.proxyReceptorUrl = '/secure/receptor'
+grails.plugin.springsecurity.cas.loginUri = '/login'
+grails.plugin.springsecurity.cas.serverUrlPrefix = 'https://cas.nps.edu/ecco'
+grails.plugin.springsecurity.cas.proxyReceptorUrl = '/secure/receptor'
