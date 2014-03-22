@@ -1,4 +1,4 @@
-grails.servlet.version = "2.5" // Change depending on target container compliance (2.5 or 3.0)
+grails.servlet.version = "3.0" // Change depending on target container compliance (2.5 or 3.0)
 grails.project.class.dir = "target/classes"
 grails.project.test.class.dir = "target/test-classes"
 grails.project.test.reports.dir = "target/test-reports"
@@ -47,24 +47,25 @@ grails.project.dependency.resolution = {
 
   plugins {
 
+    build ":tomcat:7.0.52.1"
+
+    compile ":scaffolding:2.0.3"
     compile ':spring-security-core:2.0-RC2'
     compile ":spring-security-cas:2.0-RC1"
+    compile ':cache:1.1.1'
+    compile ":rest:0.7"
 
     runtime ":hibernate:3.6.10.10"
     runtime ":jquery:1.8.3"
     runtime ":resources:1.2.7"
+    runtime ":database-migration:1.3.8"
 
     // Uncomment these (or add new ones) to enable additional resources capabilities
     //runtime ":zipped-resources:1.0"
     //runtime ":cached-resources:1.0"
     //runtime ":yui-minify-resources:0.1.5"
 
-    build ":tomcat:7.0.52.1"
 
-    runtime ":database-migration:1.3.8"
 
-    compile ':cache:1.1.1'
-
-    compile ":rest:0.7"
   }
 }
