@@ -68,7 +68,7 @@ environments {
     grails.plugin.springsecurity.cas.proxyCallbackUrl = 'http://localhost:9001/secure/receptor'
 
   }
-  bees {
+  production {
     grails.app.context = '/'
     grails.logging.jul.usebridge = true
     grails.serverURL = "http://fauxgame.npskirk.cloudbees.net"
@@ -76,7 +76,7 @@ environments {
     grails.plugin.springsecurity.cas.proxyCallbackUrl = 'http://fauxgame.npskirk.cloudbees.net/secure/receptor'
 
   }
-  production {
+  beanstalk {
     grails.app.context = '/'
     grails.logging.jul.usebridge = false
     grails.serverURL = "http://faux-game.elasticbeanstalk.com"
