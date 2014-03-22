@@ -23,20 +23,18 @@ environments {
       url = "jdbc:h2:mem:testDb;MVCC=TRUE;LOCK_TIMEOUT=10000"
     }
   }
-  bees {
+  production {
     dataSource {
       driverClassName = "com.mysql.jdbc.Driver"
       dialect = 'org.hibernate.dialect.MySQL5InnoDBDialect'
       pooled = false
-      dbCreate = "create-drop"
+      dbCreate = "update"
       jndiName = 'java:comp/env/jdbc/fauxdb'
-      username = "faux"
-      password = "faux"
     }
 
   }
 
-  production {
+  beanstalk {
     dataSource {
       pooled = true
       driverClassName = "com.mysql.jdbc.Driver"
