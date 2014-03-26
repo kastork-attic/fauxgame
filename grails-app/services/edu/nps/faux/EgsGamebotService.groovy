@@ -5,7 +5,7 @@ import groovy.json.JsonBuilder
 import groovyx.net.http.HTTPBuilder
 import net.sf.json.JSONArray
 import net.sf.json.JSONObject
-import static groovyx.net.http.ContentType.URLENC
+import static groovyx.net.http.ContentType.JSON
 
 class EgsGamebotService {
 
@@ -46,7 +46,7 @@ class EgsGamebotService {
 
     def postBody = [payload: builder.toString()]
 
-    http.post(path: "${lobbyServer.gameBot}/game-updates" , body: postBody, requestContentType: URLENC) { resp ->
+    http.post(path: "${lobbyServer.gameBot}" , body: postBody, requestContentType: groovyx.net.http.ContentType.JSON) { resp ->
       println resp.responseData
     }
 

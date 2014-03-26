@@ -135,10 +135,10 @@
 <p>Since I'm not a game, all I let you do is change the state of your player/game
 combination and send an update to EGS.  This is used to test out the gamebot update mechanisms.</p>
 <ul>
-  <li><g:link action="toInit" id="${positionInstance.id}">Change to INIT state</g:link></li>
-  <li><g:link action="toPend" id="${positionInstance.id}">Change to PEND state</g:link></li>
-  <li><g:link action="toAttn" id="${positionInstance.id}">Change to ATTN state</g:link></li>
-  <li><g:link action="toOver" id="${positionInstance.id}">Change to OVER state</g:link></li>
+  <li><g:link action="toInit" params="[pid: positionInstance.id, gid: gameInstance?.id]">Change to INIT state</g:link></li>
+  <li><g:link action="toPend" params="[pid: positionInstance.id, gid: gameInstance?.id]">Change to PEND state</g:link></li>
+  <li><g:link action="toAttn" params="[pid: positionInstance.id, gid: gameInstance?.id]">Change to ATTN state</g:link></li>
+  <li><g:link action="toOver" params="[pid: positionInstance.id, gid: gameInstance?.id]">Change to OVER state</g:link></li>
 </ul>
 
 </body>

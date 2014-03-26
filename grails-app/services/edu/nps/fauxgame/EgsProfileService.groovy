@@ -16,7 +16,10 @@ class EgsProfileService {
 
       auth.basic lobbyServer.lobbyUsername, lobbyServer.lobbyPassword
 
-      def json = get( path: "${lobbyServer.profile}/get",
+      println "GET: ${lobbyServer.profile}"
+
+
+      def json = get( path: "${lobbyServer.profile}",
                       query: [ email: userEmail,
                           title: gameTitle,
                           ver: gameVersion,

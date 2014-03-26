@@ -17,6 +17,7 @@
       <configuration>
         <datasource-map>
           <unit-entry name="Gorm" />
+          <unit-entry name="sessionFactory" />
         </datasource-map>
         <naming-strategy-map />
       </configuration>
@@ -52,6 +53,10 @@
     </content>
     <content url="file://$USER_HOME$/.grails/2.3.7/projects/fauxgame/plugins/rest-0.7">
       <sourceFolder url="file://$USER_HOME$/.grails/2.3.7/projects/fauxgame/plugins/rest-0.7/src/groovy" isTestSource="false" />
+    </content>
+    <content url="file://$USER_HOME$/.grails/2.3.7/projects/fauxgame/plugins/scaffolding-2.0.3">
+      <sourceFolder url="file://$USER_HOME$/.grails/2.3.7/projects/fauxgame/plugins/scaffolding-2.0.3/src/java" isTestSource="false" />
+      <sourceFolder url="file://$USER_HOME$/.grails/2.3.7/projects/fauxgame/plugins/scaffolding-2.0.3/src/groovy" isTestSource="false" />
     </content>
     <content url="file://$USER_HOME$/.grails/2.3.7/projects/fauxgame/plugins/spring-security-cas-2.0-RC1">
       <sourceFolder url="file://$USER_HOME$/.grails/2.3.7/projects/fauxgame/plugins/spring-security-cas-2.0-RC1/src/java" isTestSource="false" />

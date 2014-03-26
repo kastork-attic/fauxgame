@@ -13,9 +13,11 @@ class PlayController {
 
   def index() {}
 
-  def playEndpoint() {
+  def playEndpoint(String gameTitle, long gid, String role, String app, long ver) {
 
     GrailsUser grailsUser = springSecurityService.principal
+
+
     GameInstance gameInstance = GameInstance.get(params.gid)
 
     println gameInstance
@@ -24,15 +26,19 @@ class PlayController {
 
       Position positionInstance = Position.findByRoleParamAndGameInstance(params.role, gameInstance)
 
-
-      redirect(action: 'client',
-          params: [pid: positionInstance.id,
-              gid: gameInstance.id])
+      redirect(
+          action: 'client',
+          params: [
+              pid: positionInstance.id,
+              gid: gameInstance.id
+          ]
+      )
     }
 
   }
 
   def serveGameClient(int pid, int gid) {
+    println "serveGameClient: ${params}"
 
     GrailsUser grailsUser = springSecurityService.principal
     def authorities = grailsUser.authorities
@@ -41,7 +47,8 @@ class PlayController {
     def gameInstance = GameInstance.get(gid)
     println gameInstance
 
-    def returnedProfile = egsProfileService.profileGet(grailsUser.username,
+    def returnedProfile = egsProfileService.profileGet(
+        grailsUser.username,
         gameInstance.gameTitle.uriToken,
         gameInstance.gameTitle.gameVersion.toString(),
         positionInstance.roleParam,
@@ -49,51 +56,59 @@ class PlayController {
 
 
     render(view: 'show', model:
-        [positionInstance: positionInstance,
-            gameInstance: gameInstance,
-            egsProfile: returnedProfile,
-            authorities: authorities
+        [
+            positionInstance: positionInstance,
+            gameInstance    : gameInstance,
+            egsProfile      : returnedProfile,
+            authorities     : authorities
         ])
   }
 
-  def reload(int pid, String state) {
+  def reload(int pid, int gid, String state) {
 
     Position positionInstance = Position.get(pid)
-    GameInstance gameInstance = GameInstance.get(positionInstance.gameInstanceId)
+    GameInstance gameInstance = GameInstance.get(gid)
 
     positionInstance.setState(state)
     positionInstance.save(flush: true)
 
-    def updates = [[gameInstanceId: gameInstance.id.toString(),
-        gameTitle: gameInstance.gameTitle.uriToken,
-        gameVersion: gameInstance.gameTitle.gameVersion.toString(),
-        gamingId: positionInstance.playerIdent,
-        state: state,
-    ]]
+    def updates = [
+        [
+            gameInstanceId: gameInstance.id.toString(),
+            gameTitle     : gameInstance.gameTitle.uriToken,
+            gameVersion   : gameInstance.gameTitle.gameVersion.toString(),
+            gamingId      : positionInstance.playerIdent,
+            state         : state,
+        ]
+    ]
 
     egsGamebotService.gameUpdates(1, updates)
 
-    redirect(action: 'client',
-        params: [pid: pid, gid: positionInstance.gameInstance.id])
+    redirect(
+        action: 'client',
+        params: [
+            pid  : pid,
+            gid  : positionInstance.gameInstance.id
+        ])
   }
 
-  def toInit(int pid) {
-    println "Init clicked: ${pid}"
-    reload(pid, "INIT")
+  def toInit(int pid, int gid) {
+    println "Init clicked: ${pid}, ${gid}"
+    reload(pid, gid, "INIT")
   }
 
-  def toPend(int pid) {
-    println "Pend clicked: ${pid}"
-    reload(pid, "PEND")
+  def toPend(int pid, int gid) {
+    println "Pend clicked: ${pid}, ${gid}"
+    reload(pid, gid, "PEND")
   }
 
-  def toAttn(int pid) {
-    println "Attn clicked: ${pid}"
-    reload(pid, "ATTN")
+  def toAttn(int pid, int gid) {
+    println "Attn clicked: ${pid}, ${gid}"
+    reload(pid, gid, "ATTN")
   }
 
-  def toOver(int pid) {
-    println "Over clicked: ${pid}"
-    reload(pid, "OVER")
+  def toOver(int pid, int gid) {
+    println "Over clicked: ${pid}, ${gid}"
+    reload(pid, gid, "OVER")
   }
 }
