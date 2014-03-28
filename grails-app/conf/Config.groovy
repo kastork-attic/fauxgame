@@ -71,9 +71,9 @@ environments {
   production {
     grails.app.context = '/'
     grails.logging.jul.usebridge = true
-    grails.serverURL = "https://faux.bees.globalecco.org"
-    grails.plugin.springsecurity.cas.serviceUrl = 'https://faux.bees.globalecco.org/j_spring_cas_security_check'
-    grails.plugin.springsecurity.cas.proxyCallbackUrl = 'https://faux.bees.globalecco.org/secure/receptor'
+    grails.serverURL = "https://faux.globalecco.org"
+    grails.plugin.springsecurity.cas.serviceUrl = 'https://faux.globalecco.org/j_spring_cas_security_check'
+    grails.plugin.springsecurity.cas.proxyCallbackUrl = 'https://faux.globalecco.org/secure/receptor'
 
   }
   beanstalk {
