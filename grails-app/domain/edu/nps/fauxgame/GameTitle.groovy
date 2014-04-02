@@ -9,10 +9,12 @@ class GameTitle {
   String gameVersion
   Date dateCreated
   Date lastUpdated
+  Boolean supportsSelfPlay
 
   static constraints = {
     uriToken blank: false, unique: true
     displayName blank: true
+    supportsSelfPlay nullable: true
   }
 
   String toString() {

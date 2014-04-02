@@ -1,5 +1,6 @@
 package edu.nps.fauxgame
 
+import groovyx.net.http.HTTPBuilder
 import net.sf.json.JSONObject
 
 
@@ -10,26 +11,46 @@ class EgsProfileService {
 
 
     def lobbyServer = LobbyServer.get(1)
+
     JSONObject responseData
 
-    withRest(uri: lobbyServer.baseURL) {
-
-      auth.basic lobbyServer.lobbyUsername, lobbyServer.lobbyPassword
-
-      println "GET: ${lobbyServer.profile}"
-
-
-      def json = get( path: "${lobbyServer.profile}",
-                      query: [ email: userEmail,
-                          title: gameTitle,
-                          ver: gameVersion,
-                          role: gameRole,
-                          gid: gameId]
-      )
-
-      println "Returned JSON: ${json.responseData}"
+    def http = new HTTPBuilder(lobbyServer.baseURL)
+    http.auth.basic lobbyServer.lobbyUsername, lobbyServer.lobbyPassword
+    http.get( path: "${lobbyServer.profile}",
+        query: [ email: userEmail,
+                 title: gameTitle,
+                 ver: gameVersion,
+                 role: gameRole,
+                 gid: gameId]
+    ) { json ->
+      println "Returned response: ${json.responseData}"
       responseData = json.responseData
     }
+
+
+
+
+
+
+
+//    withRest(uri: lobbyServer.baseURL) {
+//
+//      auth.basic lobbyServer.lobbyUsername, lobbyServer.lobbyPassword
+//
+//      println "GET: ${lobbyServer.profile}"
+//
+//
+//      def json = get( path: "${lobbyServer.profile}",
+//                      query: [ email: userEmail,
+//                          title: gameTitle,
+//                          ver: gameVersion,
+//                          role: gameRole,
+//                          gid: gameId]
+//      )
+//
+//      println "Returned JSON: ${json.responseData}"
+//      responseData = json.responseData
+//    }
 
     responseData
   }

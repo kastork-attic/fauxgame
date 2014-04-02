@@ -48,6 +48,7 @@ class EgsGamebotService {
 
     http.post(path: "${lobbyServer.gameBot}" , body: postBody, requestContentType: groovyx.net.http.ContentType.JSON) { resp ->
       println resp.responseData
+      responseData = resp.responseData
     }
 
 //    withRest(uri: lobbyServer.baseURL) {
