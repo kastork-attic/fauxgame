@@ -22,21 +22,21 @@ class EgsGamebotService {
 
     JsonBuilder builder = new JsonBuilder()
 
-    def jsonBody = builder {
-          update  updates
-    }
-
 //    def jsonBody = builder {
-//      method "game-updates"
-//      id "${EgsGamebotService.rpcCounter}"
-//      jsonrpc  "2.0"
-//      params {
-//        payload {
 //          update  updates
-//        }
-//      }
-//
 //    }
+
+    def jsonBody = builder {
+      method "game-updates"
+      id "${EgsGamebotService.rpcCounter}"
+      jsonrpc  "2.0"
+      params {
+        payload {
+          update  updates
+        }
+      }
+
+    }
 
     println "Built JSON string: ${builder.toPrettyString()}"
     println "Built JSON string: ${builder.toString()}"
@@ -44,7 +44,7 @@ class EgsGamebotService {
     def http = new HTTPBuilder(lobbyServer.baseURL)
     http.auth.basic lobbyServer.lobbyUsername, lobbyServer.lobbyPassword
 
-    def postBody = [payload: builder.toString()]
+    def postBody = builder.toString()
 
     http.post(path: "${lobbyServer.gameBot}" , body: postBody, requestContentType: groovyx.net.http.ContentType.JSON) { resp ->
       println resp.responseData
