@@ -146,8 +146,7 @@ grails.plugin.springsecurity.cas.proxyReceptorUrl = '/secure/receptor'
 
 // Uncomment and edit the following lines to start using Grails encoding & escaping improvements
 
-/* remove this line 
-// GSP settings
+// GSP settings - new in 2.3.7
 grails {
     views {
         gsp {
@@ -166,4 +165,25 @@ grails {
         }
     }
 }
-remove this line */
+
+rabbitmq {
+
+  connection {
+  }
+
+  queues = {
+    exchange name: "ecco.exchange", type: "topic", {
+
+      // our endpoint to listen for new game requests
+      queue name: "faux.queue", durable: true, binding: "ecco.binding.#"
+
+      // our response queue
+      queue name: "faux.reply.queue", durable: true, binding: "ecco.binding.#"
+
+      // destination for game state changes
+      queue name: "lobby.update.queue", durable: false, binding: "ecco.binding.#"
+
+    }
+  }
+
+}
