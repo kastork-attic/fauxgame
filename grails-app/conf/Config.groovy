@@ -169,6 +169,10 @@ grails {
 rabbitmq {
 
   connection {
+    host = System.getenv()['RABBIT_HOST']
+    username = System.getenv()['RABBIT_USERNAME']
+    password = System.getenv()['RABBIT_PASSWORD']
+    virtualHost = System.getenv()['RABBIT_VHOST']
   }
 
   queues = {
