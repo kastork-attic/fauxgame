@@ -1,5 +1,6 @@
 package edu.nps.faux
 
+import com.budjb.rabbitmq.RabbitMessageBuilder
 import edu.nps.fauxgame.LobbyServer
 import groovy.json.JsonBuilder
 import groovyx.net.http.HTTPBuilder
@@ -11,8 +12,34 @@ class EgsGamebotService {
 
   static int rpcCounter = 0
 
-  def gameUpdates(int lobbyServerId, ArrayList updates) {
+  def gameUpdateViaAMQP(int lobbyServerId, ArrayList updates)
+  {
+    EgsGamebotService.rpcCounter += 1
 
+    def lobbyServer = LobbyServer.get(lobbyServerId)
+
+    def message = [
+        method: "game-updates",
+        id: "${EgsGamebotService.rpcCounter}",
+        jsonrpc:  "2.0",
+        params : [
+          payload : [
+            update:  updates
+          ]
+        ]
+      ]
+
+    new RabbitMessageBuilder().send {
+      routingKey = "lobby.update.queue"
+      body = message
+    }
+
+
+    log.debug("gamebot data: ${updates}")
+  }
+
+  def gameUpdates(int lobbyServerId, ArrayList updates)
+  {
     EgsGamebotService.rpcCounter += 1
 
     def lobbyServer = LobbyServer.get(lobbyServerId)
@@ -21,10 +48,6 @@ class EgsGamebotService {
     println "gamebot data: ${updates}"
 
     JsonBuilder builder = new JsonBuilder()
-
-//    def jsonBody = builder {
-//          update  updates
-//    }
 
     def jsonBody = builder {
       method "game-updates"
@@ -51,15 +74,6 @@ class EgsGamebotService {
       responseData = resp.responseData
     }
 
-//    withRest(uri: lobbyServer.baseURL) {
-//
-//      auth.basic lobbyServer.lobbyUsername, lobbyServer.lobbyPassword
-//
-//      def json = post( path: "${lobbyServer.gameBot}/game-updates", payload: builder.content)
-//
-//      println "Returned JSON: ${json.responseData}"
-//      responseData = json.responseData
-//    }
 
     responseData
   }

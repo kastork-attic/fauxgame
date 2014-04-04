@@ -47,7 +47,7 @@ class PlayController {
     def gameInstance = GameInstance.get(gid)
     println gameInstance
 
-    def returnedProfile = egsProfileService.profileGet(
+    def returnedProfile = egsProfileService.profileGetViaAMQP(
         grailsUser.username,
         gameInstance.gameTitle.uriToken,
         gameInstance.gameTitle.gameVersion.toString(),
@@ -83,7 +83,7 @@ class PlayController {
         ]
     ]
 
-    egsGamebotService.gameUpdates(1, updates)
+    egsGamebotService.gameUpdateViaAMQP(1, updates)
 
     redirect(
         action: 'client',

@@ -181,8 +181,11 @@ rabbitmq {
       // our endpoint to listen for new game requests
       queue name: "faux.queue", durable: true, binding: "ecco.binding.#"
 
-      // our response queue
+      // our response queue (for, e.g., responses to profile requests
       queue name: "faux.reply.queue", durable: true, binding: "ecco.binding.#"
+
+      // destination for information queries to lobby (for, e.g., profile)
+      queue name: "lobby.query.queue", durable: false, binding: "ecco.binding.#"
 
       // destination for game state changes
       queue name: "lobby.update.queue", durable: false, binding: "ecco.binding.#"

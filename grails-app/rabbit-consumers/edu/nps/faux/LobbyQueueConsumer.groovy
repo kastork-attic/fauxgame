@@ -1,8 +1,12 @@
 package edu.nps.faux
 
 import com.budjb.rabbitmq.MessageContext
+import edu.nps.fauxgame.NewGameService
 
-class LobbyQueueListenerConsumer {
+class LobbyQueueConsumer {
+
+  NewGameService newGameService
+
   /**
    * Consumer configuration.
    */
@@ -24,5 +28,11 @@ class LobbyQueueListenerConsumer {
   def handleMessage(Map body, MessageContext context) {
     println "Fauxgame hears: $body, Context $context"
     println "      reply-to: ${context.properties.replyTo}"
+
+    def newGameResponse = newGameService.createGame(body)
+
+    println(newGameResponse)
+    newGameResponse
+
   }
 }
