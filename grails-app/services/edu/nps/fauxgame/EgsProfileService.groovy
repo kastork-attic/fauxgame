@@ -1,6 +1,7 @@
 package edu.nps.fauxgame
 
 import groovyx.net.http.HTTPBuilder
+import groovyx.net.http.HttpResponseDecorator
 import net.sf.json.JSONObject
 
 
@@ -16,16 +17,20 @@ class EgsProfileService {
 
     def http = new HTTPBuilder(lobbyServer.baseURL)
     http.auth.basic lobbyServer.lobbyUsername, lobbyServer.lobbyPassword
-    http.get( path: "${lobbyServer.profile}",
+
+    println "Will GET: ${lobbyServer.profile}"
+    def foo = http.get( path: "${lobbyServer.profile}",
         query: [ email: userEmail,
                  title: gameTitle,
                  ver: gameVersion,
                  role: gameRole,
                  gid: gameId]
-    ) { json ->
-      println "Returned response: ${json.responseData}"
+    ) { HttpResponseDecorator json ->
+      println "Returned response: ${json.allHeaders}"
       responseData = json.responseData
     }
+
+    println "Foo is $foo"
 
 
 

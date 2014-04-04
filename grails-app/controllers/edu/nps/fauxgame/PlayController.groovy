@@ -54,6 +54,7 @@ class PlayController {
         positionInstance.roleParam,
         gameInstance.id.toString())
 
+    println "Returned profile is: $returnedProfile"
 
     render(view: 'show', model:
         [
