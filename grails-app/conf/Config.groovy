@@ -75,7 +75,36 @@ environments {
     grails.plugin.springsecurity.cas.serviceUrl = 'https://faux.globalecco.org/j_spring_cas_security_check'
     grails.plugin.springsecurity.cas.proxyCallbackUrl = 'https://faux.globalecco.org/secure/receptor'
 
-  }
+    rabbitmq {
+
+      connection {
+        host = System.getProperty('RABBIT_HOST')
+        username = System.getProperty('RABBIT_USERNAME')
+        password = System.getProperty('RABBIT_PASSWORD')
+        virtualHost = System.getProperty('RABBIT_VHOST')
+      }
+
+      queues = {
+        exchange name: "ecco.exchange", type: "topic", {
+
+          // our endpoint to listen for new game requests
+          queue name: "faux.queue", durable: true, binding: "ecco.binding.#"
+
+          // our response queue (for, e.g., responses to profile requests
+          queue name: "faux.reply.queue", durable: true, binding: "ecco.binding.#"
+
+          // destination for information queries to lobby (for, e.g., profile)
+          queue name: "lobby.query.queue", durable: false, binding: "ecco.binding.#"
+
+          // destination for game state changes
+          queue name: "lobby.update.queue", durable: false, binding: "ecco.binding.#"
+
+        }
+      }
+
+
+
+    }
   beanstalk {
     grails.app.context = '/'
     grails.logging.jul.usebridge = false
@@ -165,32 +194,5 @@ grails {
         }
     }
 }
-
-rabbitmq {
-
-  connection {
-    host = System.getenv()['RABBIT_HOST']
-    username = System.getenv()['RABBIT_USERNAME']
-    password = System.getenv()['RABBIT_PASSWORD']
-    virtualHost = System.getenv()['RABBIT_VHOST']
-  }
-
-  queues = {
-    exchange name: "ecco.exchange", type: "topic", {
-
-      // our endpoint to listen for new game requests
-      queue name: "faux.queue", durable: true, binding: "ecco.binding.#"
-
-      // our response queue (for, e.g., responses to profile requests
-      queue name: "faux.reply.queue", durable: true, binding: "ecco.binding.#"
-
-      // destination for information queries to lobby (for, e.g., profile)
-      queue name: "lobby.query.queue", durable: false, binding: "ecco.binding.#"
-
-      // destination for game state changes
-      queue name: "lobby.update.queue", durable: false, binding: "ecco.binding.#"
-
-    }
-  }
 
 }
