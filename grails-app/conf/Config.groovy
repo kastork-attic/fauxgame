@@ -68,6 +68,7 @@ environments {
     grails.plugin.springsecurity.cas.proxyCallbackUrl = 'http://localhost:9001/secure/receptor'
 
   }
+
   production {
     grails.app.context = '/'
     grails.logging.jul.usebridge = true
@@ -103,8 +104,9 @@ environments {
       }
 
 
-
     }
+  }
+
   beanstalk {
     grails.app.context = '/'
     grails.logging.jul.usebridge = false
@@ -195,4 +197,4 @@ grails {
     }
 }
 
-}
+
