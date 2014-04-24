@@ -15,6 +15,8 @@ class NewGameService {
 
     def t = GameTitle.findByUriTokenAndGameVersion(parameterMap.gameTitle, parameterMap.ver)
 
+	log.debug "Looked for ${parameterMap.gameTitle} / ${parameterMap.ver} and found $t"
+	
     if (null == t) {
 
       t = new GameTitle(
@@ -23,19 +25,24 @@ class NewGameService {
           numberPositions: positions.size(),
           gameVersion: parameterMap.ver
       ).save(flush: true)
+	  
+	  log.debug "Created title $t"
 
     } else {
       if( t.numberPositions != positions.size()) {
         return [stat: "ERROR", message: "Attempt to redefine a game title's position structure."]
       }
     }
+	LobbyServer lobby = LobbyServer.all[0]
+	log.debug "Will use lobby ${lobby}"
 
-    // TODO Be intelligent about lobby server configurations
     def newGame = new GameInstance(
         gameTitle: t,
-        lobbyServer: LobbyServer.get(1)
+        lobbyServer: lobby
     )
     newGame.save(flush: true)
+	
+	log.debug "Created game instance $newGame"
 
     positions.each { k, v ->
       Position p = new Position(gameInstance: newGame, roleParam: k, playerIdent: v)

@@ -18,6 +18,20 @@ class BootStrap {
           lobbyPassword: 'fauxgame').save(flush: true)
         }
       }
+	  
+	  beanstalk {
+		  def lobby = LobbyServer.get(1)
+		  if (null == lobby) {
+			new LobbyServer(baseURL: 'http://ecco-lobby.elasticbeanstalk.com',
+			profile: '/serverapi/profile/get',
+			gameBot: '/serverapi/game-updates',
+			lobbyUsername: 'fauxgame@games.globalecco.org',
+			lobbyPassword: 'fauxgame').save(flush: true)
+			
+			println "===  CREATED LOBBY AT CONFIG FOR:  http://ecco-lobby.elasticbeanstalk.com"
+		  }
+  
+	  }
     }
 
     // password login is not used or available

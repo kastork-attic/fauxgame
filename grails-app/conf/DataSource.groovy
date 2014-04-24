@@ -38,7 +38,7 @@ environments {
     dataSource {
       pooled = true
       driverClassName = "com.mysql.jdbc.Driver"
-      dbCreate = "update"
+      dbCreate = "create-drop"
       username = System.getProperty("PARAM1")
       password = System.getProperty("PARAM2")
       dialect = 'org.hibernate.dialect.MySQL5InnoDBDialect'

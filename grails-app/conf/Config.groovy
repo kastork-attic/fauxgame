@@ -15,18 +15,18 @@ grails.project.groupId = appName // change this to alter the default package nam
 grails.mime.file.extensions = true // enables the parsing of file extensions from URLs into the request format
 grails.mime.use.accept.header = false
 grails.mime.types = [
-    all: '*/*',
-    atom: 'application/atom+xml',
-    css: 'text/css',
-    csv: 'text/csv',
-    form: 'application/x-www-form-urlencoded',
-    html: ['text/html', 'application/xhtml+xml'],
-    js: 'text/javascript',
-    json: ['application/json', 'text/json'],
+    all          : '*/*',
+    atom         : 'application/atom+xml',
+    css          : 'text/css',
+    csv          : 'text/csv',
+    form         : 'application/x-www-form-urlencoded',
+    html         : ['text/html', 'application/xhtml+xml'],
+    js           : 'text/javascript',
+    json         : ['application/json', 'text/json'],
     multipartForm: 'multipart/form-data',
-    rss: 'application/rss+xml',
-    text: 'text/plain',
-    xml: ['text/xml', 'application/xml']
+    rss          : 'application/rss+xml',
+    text         : 'text/plain',
+    xml          : ['text/xml', 'application/xml']
 ]
 
 // URL Mapping Cache Max Size, defaults to 5000
@@ -34,7 +34,7 @@ grails.mime.types = [
 
 // What URL patterns should be processed by the resources plugin
 grails.resources.adhoc.patterns = ['/images/*', '/css/*', '/js/*', '/plugins/*']
-grails.resources.adhoc.excludes = ['**/WEB-INF/**','**/META-INF/**']
+grails.resources.adhoc.excludes = ['**/WEB-INF/**', '**/META-INF/**']
 
 // The default codec used to encode data with ${}
 grails.views.default.codec = "none" // none, html, base64
@@ -66,12 +66,20 @@ environments {
     grails.logging.jul.usebridge = true
     grails.plugin.springsecurity.cas.serviceUrl = 'http://localhost:9001/j_spring_cas_security_check'
     grails.plugin.springsecurity.cas.proxyCallbackUrl = 'http://localhost:9001/secure/receptor'
+    rabbitmq {
 
+      connection {
+        host = System.env['RABBIT_HOST']
+        username = System.env['RABBIT_USERNAME']
+        password = System.env['RABBIT_PASSWORD']
+        virtualHost = System.env['RABBIT_VHOST']
+      }
+    }
   }
 
   production {
     grails.app.context = '/'
-    grails.logging.jul.usebridge = true
+    grails.logging.jul.usebridge = false
     grails.serverURL = "https://faux.globalecco.org"
     grails.plugin.springsecurity.cas.serviceUrl = 'https://faux.globalecco.org/j_spring_cas_security_check'
     grails.plugin.springsecurity.cas.proxyCallbackUrl = 'https://faux.globalecco.org/secure/receptor'
@@ -84,26 +92,6 @@ environments {
         password = System.getProperty('RABBIT_PASSWORD')
         virtualHost = System.getProperty('RABBIT_VHOST')
       }
-
-      queues = {
-        exchange name: "ecco.exchange", type: "topic", {
-
-          // our endpoint to listen for new game requests
-          queue name: "faux.queue", durable: true, binding: "ecco.binding.#"
-
-          // our response queue (for, e.g., responses to profile requests
-          queue name: "faux.reply.queue", durable: true, binding: "ecco.binding.#"
-
-          // destination for information queries to lobby (for, e.g., profile)
-          queue name: "lobby.query.queue", durable: false, binding: "ecco.binding.#"
-
-          // destination for game state changes
-          queue name: "lobby.update.queue", durable: false, binding: "ecco.binding.#"
-
-        }
-      }
-
-
     }
   }
 
@@ -113,6 +101,16 @@ environments {
     grails.serverURL = "http://faux-game.elasticbeanstalk.com"
     grails.plugin.springsecurity.cas.serviceUrl = 'http://faux-game.elasticbeanstalk.com/j_spring_cas_security_check'
     grails.plugin.springsecurity.cas.proxyCallbackUrl = 'http://faux-game.elasticbeanstalk.com/secure/receptor'
+    rabbitmq {
+
+      connection {
+        host = System.getProperty('RABBIT_HOST')
+        username = System.getProperty('RABBIT_USERNAME')
+        password = System.getProperty('RABBIT_PASSWORD')
+        virtualHost = System.getProperty('RABBIT_VHOST')
+      }
+
+    }
   }
 }
 
@@ -120,9 +118,9 @@ environments {
 log4j = {
   // Example of changing the log pattern for the default console appender:
   //
-  appenders {
-      console name:'stdout', layout:pattern(conversionPattern: '%c{2} %m%n')
-  }
+//  appenders {
+//      console name:'stdout', layout:pattern(conversionPattern: '%c{2} %m%n')
+//  }
 
   error 'org.codehaus.groovy.grails.web.servlet',        // controllers
       'org.codehaus.groovy.grails.web.pages',          // GSP
@@ -140,27 +138,31 @@ log4j = {
 //  debug 'org.codehaus.groovy.grails.plugin.springsecurity'
 //  debug 'org.springframework.security'
 //  debug 'org.jasig.cas.client'
-  root {
-    error 'stdout'
+
+  all 'grails.app.services',
+      'grails.app.controllers',
+
+      root {
+        error 'stdout'
 //    info 'stdout'
-    warn 'stdout'
+        warn 'stdout'
 //    debug 'stdout'
-    additivity = true
-  }
+        additivity = true
+      }
 }
 
 grails.plugin.springsecurity.rejectIfNoRule = true
 grails.plugin.springsecurity.securityConfigType = "InterceptUrlMap"
 grails.plugin.springsecurity.interceptUrlMap = [
     '/j_spring_cas_security_check': ['IS_AUTHENTICATED_ANONYMOUSLY'],
-    '/secure/**': ['ROLE_ADMIN'],
-    '/login/**': ['IS_AUTHENTICATED_ANONYMOUSLY'],
-    '/**/new': ['IS_AUTHENTICATED_ANONYMOUSLY'],
-    '/**/play/': ['ROLE_PLAYER'],
-    '/**/play/**': ['ROLE_PLAYER'],
-    '/play/**': ['ROLE_PLAYER'],
-    'play/**': ['ROLE_PLAYER'],
-    '/**': ['ROLE_ADMIN']
+    '/secure/**'                  : ['ROLE_ADMIN'],
+    '/login/**'                   : ['IS_AUTHENTICATED_ANONYMOUSLY'],
+    '/**/new'                     : ['IS_AUTHENTICATED_ANONYMOUSLY'],
+    '/**/play/'                   : ['ROLE_PLAYER'],
+    '/**/play/**'                 : ['ROLE_PLAYER'],
+    '/play/**'                    : ['ROLE_PLAYER'],
+    'play/**'                     : ['ROLE_PLAYER'],
+    '/**'                         : ['ROLE_ADMIN']
 ]
 
 grails.plugin.springsecurity.providerNames = ["casAuthenticationProvider"]
@@ -179,22 +181,44 @@ grails.plugin.springsecurity.cas.proxyReceptorUrl = '/secure/receptor'
 
 // GSP settings - new in 2.3.7
 grails {
-    views {
-        gsp {
-            encoding = 'UTF-8'
-            htmlcodec = 'xml' // use xml escaping instead of HTML4 escaping
-            codecs {
-                expression = 'html' // escapes values inside null
-                scriptlet = 'none' // escapes output from scriptlets in GSPs
-                taglib = 'none' // escapes output from taglibs
-                staticparts = 'none' // escapes output from static template parts
-            }
-        }
-        // escapes all not-encoded output at final stage of outputting
-        filteringCodecForContentType {
-            //'text/html' = 'html'
-        }
+  views {
+    gsp {
+      encoding = 'UTF-8'
+      htmlcodec = 'xml' // use xml escaping instead of HTML4 escaping
+      codecs {
+        expression = 'html' // escapes values inside null
+        scriptlet = 'none' // escapes output from scriptlets in GSPs
+        taglib = 'none' // escapes output from taglibs
+        staticparts = 'none' // escapes output from static template parts
+      }
     }
+    // escapes all not-encoded output at final stage of outputting
+    filteringCodecForContentType {
+      //'text/html' = 'html'
+    }
+  }
 }
+
+rabbitmq {
+  queues = {
+    exchange name: "ecco.exchange", type: "topic", {
+
+      // our endpoint to listen for new game requests
+      queue name: "faux.queue", durable: true, binding: "ecco.binding.#"
+
+      // our response queue (for, e.g., responses to profile requests
+      queue name: "faux.reply.queue", durable: true, binding: "ecco.binding.#"
+
+      // destination for information queries to lobby (for, e.g., profile)
+      queue name: "lobby.query.queue", durable: false, binding: "ecco.binding.#"
+
+      // destination for game state changes
+      queue name: "lobby.update.queue", durable: false, binding: "ecco.binding.#"
+
+    }
+  }
+
+}
+
 
 
