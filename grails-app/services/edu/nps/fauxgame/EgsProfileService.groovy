@@ -41,14 +41,15 @@ class EgsProfileService {
     http.auth.basic lobbyServer.lobbyUsername, lobbyServer.lobbyPassword
 
     println "Will GET: ${lobbyServer.profile}"
+
     def foo = http.get(path: "${lobbyServer.profile}",
         query: [email: userEmail,
                 title: gameTitle,
                 ver  : gameVersion,
                 role : gameRole,
                 gid  : gameId]
-    ) { HttpResponseDecorator json ->
-      println "Returned response: ${json.allHeaders}"
+    ) { HttpResponseDecorator resp, json ->
+      println "Returned response: ${resp.allHeaders}"
       responseData = json.responseData
     }
 

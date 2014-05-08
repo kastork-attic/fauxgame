@@ -53,12 +53,12 @@ grails.project.dependency.resolution = {
     compile ':spring-security-core:2.0-RC2'
     compile ":spring-security-cas:2.0-RC1"
     compile ':cache:1.1.1'
-    compile ":rest:0.7"
+    compile ":rest:0.8"
 
     runtime ":hibernate:3.6.10.10"
     runtime ":jquery:1.8.3"
     runtime ":resources:1.2.7"
-    runtime ":database-migration:1.3.8"
+    runtime ":database-migration:1.4.0"
 
     compile ":rabbitmq-native:1.0.3"
   }

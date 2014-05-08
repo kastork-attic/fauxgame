@@ -66,6 +66,32 @@ environments {
     grails.logging.jul.usebridge = true
     grails.plugin.springsecurity.cas.serviceUrl = 'http://localhost:9001/j_spring_cas_security_check'
     grails.plugin.springsecurity.cas.proxyCallbackUrl = 'http://localhost:9001/secure/receptor'
+
+    grails.plugin.springsecurity.cas.loginUri = '/login'
+    grails.plugin.springsecurity.cas.serverUrlPrefix = 'https://cas.nps.edu/ecco'
+    grails.plugin.springsecurity.cas.proxyReceptorUrl = '/secure/receptor'
+
+    rabbitmq {
+
+      connection {
+        host = System.env['RABBIT_HOST']
+        username = System.env['RABBIT_USERNAME']
+        password = System.env['RABBIT_PASSWORD']
+        virtualHost = System.env['RABBIT_VHOST']
+      }
+    }
+  }
+
+  localProduction {
+    grails.app.context = '/faux'
+    grails.logging.jul.usebridge = true
+    grails.plugin.springsecurity.cas.serviceUrl = 'http://localhost:9001/faux/j_spring_cas_security_check'
+    grails.plugin.springsecurity.cas.proxyCallbackUrl = 'http://localhost:9001/faux/secure/receptor'
+
+    grails.plugin.springsecurity.cas.loginUri = '/login'
+    grails.plugin.springsecurity.cas.serverUrlPrefix = 'https://devcas.globalecco.org'
+    grails.plugin.springsecurity.cas.proxyReceptorUrl = '/secure/receptor'
+
     rabbitmq {
 
       connection {
@@ -84,6 +110,10 @@ environments {
     grails.plugin.springsecurity.cas.serviceUrl = 'https://faux.globalecco.org/j_spring_cas_security_check'
     grails.plugin.springsecurity.cas.proxyCallbackUrl = 'https://faux.globalecco.org/secure/receptor'
 
+    grails.plugin.springsecurity.cas.loginUri = '/login'
+    grails.plugin.springsecurity.cas.serverUrlPrefix = 'https://cas.nps.edu/ecco'
+    grails.plugin.springsecurity.cas.proxyReceptorUrl = '/secure/receptor'
+
     rabbitmq {
 
       connection {
@@ -101,6 +131,11 @@ environments {
     grails.serverURL = "http://faux-game.elasticbeanstalk.com"
     grails.plugin.springsecurity.cas.serviceUrl = 'http://faux-game.elasticbeanstalk.com/j_spring_cas_security_check'
     grails.plugin.springsecurity.cas.proxyCallbackUrl = 'http://faux-game.elasticbeanstalk.com/secure/receptor'
+
+    grails.plugin.springsecurity.cas.loginUri = '/login'
+    grails.plugin.springsecurity.cas.serverUrlPrefix = 'https://cas.nps.edu/ecco'
+    grails.plugin.springsecurity.cas.proxyReceptorUrl = '/secure/receptor'
+
     rabbitmq {
 
       connection {
@@ -173,9 +208,6 @@ grails.plugin.springsecurity.userLookup.authorityJoinClassName = 'edu.nps.fauxga
 grails.plugin.springsecurity.authority.className = 'edu.nps.fauxgame.Role'
 
 
-grails.plugin.springsecurity.cas.loginUri = '/login'
-grails.plugin.springsecurity.cas.serverUrlPrefix = 'https://cas.nps.edu/ecco'
-grails.plugin.springsecurity.cas.proxyReceptorUrl = '/secure/receptor'
 
 // Uncomment and edit the following lines to start using Grails encoding & escaping improvements
 

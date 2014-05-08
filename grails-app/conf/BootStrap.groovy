@@ -3,35 +3,55 @@ import edu.nps.fauxgame.User
 import edu.nps.fauxgame.UserRole
 import edu.nps.fauxgame.LobbyServer
 
-class BootStrap {
+class BootStrap
+{
 
   def init = { servletContext ->
 
     environments {
+
       development {
+
         def lobby = LobbyServer.get(1)
-        if (null == lobby) {
+
+        if (null == lobby)
+        {
           new LobbyServer(baseURL: 'http://localhost:9000',
-          profile: '/serverapi/profile/get',
-          gameBot: '/serverapi/game-updates',
-          lobbyUsername: 'fauxgame@games.globalecco.org',
-          lobbyPassword: 'fauxgame').save(flush: true)
+              profile: '/serverapi/profile/get',
+              gameBot: '/serverapi/game-updates',
+              lobbyUsername: 'fauxgame@games.globalecco.org',
+              lobbyPassword: 'fauxgame').save(flush: true)
         }
       }
-	  
-	  beanstalk {
-		  def lobby = LobbyServer.get(1)
-		  if (null == lobby) {
-			new LobbyServer(baseURL: 'http://ecco-lobby.elasticbeanstalk.com',
-			profile: '/serverapi/profile/get',
-			gameBot: '/serverapi/game-updates',
-			lobbyUsername: 'fauxgame@games.globalecco.org',
-			lobbyPassword: 'fauxgame').save(flush: true)
-			
-			println "===  CREATED LOBBY AT CONFIG FOR:  http://ecco-lobby.elasticbeanstalk.com"
-		  }
-  
-	  }
+
+      localProduction {
+
+        def lobby = LobbyServer.get(1)
+
+        if (null == lobby)
+        {
+          new LobbyServer(baseURL: 'http://localhost:8080',
+              profile: '/api/secure/jsonws/egs-portlet.gamingprofile/get',
+              gameBot: '/api/secure/jsonws/egs-portlet.gamebot',
+              lobbyUsername: 'games@globalecco.org',
+              lobbyPassword: 'wibble').save(flush: true)
+        }
+      }
+
+      beanstalk {
+        def lobby = LobbyServer.get(1)
+        if (null == lobby)
+        {
+          new LobbyServer(baseURL: 'http://ecco-lobby.elasticbeanstalk.com',
+              profile: '/serverapi/profile/get',
+              gameBot: '/serverapi/game-updates',
+              lobbyUsername: 'fauxgame@games.globalecco.org',
+              lobbyPassword: 'fauxgame').save(flush: true)
+
+          println "===  CREATED LOBBY AT CONFIG FOR:  http://ecco-lobby.elasticbeanstalk.com"
+        }
+
+      }
     }
 
     // password login is not used or available

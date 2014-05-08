@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DataSourceManagerImpl" format="xml" hash="2309169554">
+    <data-source source="LOCAL" name="H2 -Grails" uuid="2136acf0-26f9-4dfb-820f-9b7ec7a4241c">
+      <driver-ref>h2.in-memory</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.h2.Driver</jdbc-driver>
+      <jdbc-url>jdbc:h2:mem:devDb</jdbc-url>
+      <schema-pattern>DEVDB.PUBLIC</schema-pattern>
+      <default-schemas>DEVDB.PUBLIC</default-schemas>
+      <libraries />
+    </data-source>
+  </component>
+</project>
+
