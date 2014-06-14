@@ -30,7 +30,7 @@ class BootStrap
 
         if (null == lobby)
         {
-          new LobbyServer(baseURL: 'http://localhost:8080',
+          new LobbyServer(baseURL: 'http://kas-local-liferay.ngrok.com',
               profile: '/api/secure/jsonws/egs-portlet.gamingprofile/get',
               gameBot: '/api/secure/jsonws/egs-portlet.gamebot',
               lobbyUsername: 'games@globalecco.org',
@@ -63,12 +63,22 @@ class BootStrap
         accountLocked: false,
         passwordExpired: false).save(flush: true)
 
-    def r = new Role(authority: 'ROLE_PLAYER').save(flush: true)
-    def ur = new UserRole(user: u, role: r).save(flush: true)
+    def pr = new Role(authority: 'ROLE_PLAYER').save(flush: true)
+    def ur = new UserRole(user: u, role: pr).save(flush: true)
 
-    r = new Role(authority: 'ROLE_ADMIN').save(flush: true)
-    ur = new UserRole(user: u, role: r).save(flush: true)
+    def ar = new Role(authority: 'ROLE_ADMIN').save(flush: true)
+    ur = new UserRole(user: u, role: ar).save(flush: true)
 
+    u = new User(username: 'admin_user',
+        password: 'foo',
+        enabled: true,
+        accountExpired: false,
+        accountLocked: false,
+        passwordExpired: false).save(flush: true)
+
+    ur = new UserRole(user: u, role: pr).save(flush: true)
+
+    ur = new UserRole(user: u, role: ar).save(flush: true)
   }
 
   def destroy = {

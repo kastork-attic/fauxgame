@@ -1,14 +1,17 @@
 package edu.nps.fauxgame
 
 import com.budjb.rabbitmq.RabbitMessageBuilder
-import groovyx.net.http.HTTPBuilder
-import groovyx.net.http.HttpResponseDecorator
-import net.sf.json.JSONObject
+import com.budjb.requestbuilder.RequestBuilder
+import com.budjb.requestbuilder.ResponseStatusException
+import com.sun.jersey.api.client.ClientResponse
+import grails.converters.JSON
 
 
-class EgsProfileService {
+class EgsProfileService
+{
 
-  def profileGetViaAMQP(String userEmail, String gameTitle, String gameVersion, String gameRole, String gameId) {
+  def profileGetViaAMQP(String userEmail, String gameTitle, String gameVersion, String gameRole, String gameId)
+  {
     def lobbyServer = LobbyServer.get(1)
 
     def message = [
@@ -32,29 +35,40 @@ class EgsProfileService {
   }
 
   // https://globalecco.org/api/secure/jsonws/egs-portlet.gamingprofile/get?email=member@domain&title=someTitle&ver=xx&role&gid=xxxx
-  def profileGet(String userEmail, String gameTitle, String gameVersion, String gameRole, String gameId) {
-    def lobbyServer = LobbyServer.get(1)
+  def profileGet(LobbyServer lobbyServer, String userEmail, String gameTitle, String gameVersion, String gameRole, String gameId)
+  {
+    def reply = null
 
-    JSONObject responseData
+    try
+    {
+      def responseData = new RequestBuilder().get {
+        uri = lobbyServer.baseURL + lobbyServer.profile
+        useBasicAuth = true
+        basicAuthUserName = lobbyServer.lobbyUsername
+        basicAuthPassword = lobbyServer.lobbyPassword
+        convertJson = false
+        query = [
+            email: userEmail,
+            title: gameTitle,
+            ver  : gameVersion,
+            role : gameRole,
+            gid  : gameId
+        ]
+      }
 
-    def http = new HTTPBuilder(lobbyServer.baseURL)
-    http.auth.basic lobbyServer.lobbyUsername, lobbyServer.lobbyPassword
+      log.debug(responseData.getClass())
+      // The liferay web service returns a json object with 'text/javascript'
+      // So just treat it as a string and parse it ourselves
+      reply = JSON.parse(responseData)
 
-    println "Will GET: ${lobbyServer.profile}"
 
-    def foo = http.get(path: "${lobbyServer.profile}",
-        query: [email: userEmail,
-                title: gameTitle,
-                ver  : gameVersion,
-                role : gameRole,
-                gid  : gameId]
-    ) { HttpResponseDecorator resp, json ->
-      println "Returned response: ${resp.allHeaders}"
-      responseData = json.responseData
+
+    } catch (ResponseStatusException ex)
+    {
+      log.debug("Profile call to lobby returned ${ex.status}\n${ex.content}")
+      reply = ex.content
     }
 
-    println "Foo is $foo"
-
-    responseData
+    reply
   }
 }

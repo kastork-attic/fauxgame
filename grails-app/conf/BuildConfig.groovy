@@ -36,7 +36,10 @@ grails.project.dependency.resolution = {
     //mavenRepo "http://repository.codehaus.org"
     //mavenRepo "http://download.java.net/maven/2/"
     //mavenRepo "http://repository.jboss.com/maven2/"
+
     mavenRepo "http://repo.spring.io/milestone/"
+    mavenRepo "http://repository.codehaus.org/"
+    mavenRepo "http://repository.jboss.org/maven2/"
   }
 
   dependencies {
@@ -53,7 +56,10 @@ grails.project.dependency.resolution = {
     compile ':spring-security-core:2.0-RC2'
     compile ":spring-security-cas:2.0-RC1"
     compile ':cache:1.1.1'
-    compile ":rest:0.8"
+
+
+//    compile ":rest:0.8"
+    compile ":jersey-request-builder:1.2.1"
 
     runtime ":hibernate:3.6.10.10"
     runtime ":jquery:1.8.3"

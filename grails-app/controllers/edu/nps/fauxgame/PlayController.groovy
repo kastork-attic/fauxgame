@@ -2,8 +2,6 @@ package edu.nps.fauxgame
 
 import edu.nps.faux.EgsGamebotService
 import grails.plugin.springsecurity.userdetails.GrailsUser
-import net.sf.json.JSONArray
-import net.sf.json.JSONObject
 
 class PlayController {
 
@@ -49,6 +47,7 @@ class PlayController {
 
 //    def returnedProfile = egsProfileService.profileGetViaAMQP(
     def returnedProfile = egsProfileService.profileGet(
+        gameInstance.lobbyServer,
         grailsUser.username,
         gameInstance.gameTitle.uriToken,
         gameInstance.gameTitle.gameVersion.toString(),
@@ -85,7 +84,7 @@ class PlayController {
     ]
 
 //    egsGamebotService.gameUpdateViaAMQP(1, updates)
-    egsGamebotService.gameUpdates(1, updates)
+    egsGamebotService.gameUpdates(gameInstance.lobbyServer, updates)
 
     redirect(
         action: 'client',

@@ -1,0 +1,24 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Development - local rabbit" type="GrailsRunConfigurationType" factoryName="Grails">
+    <module name="fauxgame" />
+    <setting name="vmparams" value="-Dserver.port=9001 -Dgrails.env=development" />
+    <setting name="cmdLine" value="run-app" />
+    <setting name="depsClasspath" value="true" />
+    <env name="RABBIT_HOST" value="localhost" />
+    <env name="RABBIT_PASSWORD" value="guest" />
+    <env name="RABBIT_USERNAME" value="guest" />
+    <env name="RABBIT_VHOST" value="" />
+    <setting name="passParentEnv" value="true" />
+    <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+    <setting name="launchBrowser" value="false" />
+    <RunnerSettings RunnerId="GrailsMavenDebuggerRunner">
+      <option name="DEBUG_PORT" value="" />
+      <option name="TRANSPORT" value="0" />
+      <option name="LOCAL" value="true" />
+    </RunnerSettings>
+    <RunnerSettings RunnerId="Run" />
+    <ConfigurationWrapper RunnerId="GrailsMavenDebuggerRunner" />
+    <ConfigurationWrapper RunnerId="Run" />
+    <method />
+  </configuration>
+</component>
